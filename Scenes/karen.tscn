@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bni26pvvjmxp7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqjt3"]
+albedo_color = Color(0.941176, 0.701961, 1, 1)
+metallic = 0.5
+roughness = 0.0
+emission = Color(0.941176, 0.701961, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rb3he"]
+material = SubResource( "StandardMaterial3D_wqjt3" )
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fqe8w"]
+
+[node name="karen" type="RigidDynamicBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.25612)
+axis_lock_angular_y = true
+mass = 0.1
+freeze_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335912, 0)
+mesh = SubResource( "CapsuleMesh_rb3he" )
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335912, 0)
+shape = SubResource( "CapsuleShape3D_fqe8w" )

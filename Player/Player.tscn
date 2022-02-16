@@ -1,0 +1,161 @@
+[gd_scene load_steps=14 format=3 uid="uid://d1k3ks7jyxjfw"]
+
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_e54fd"]
+[ext_resource type="PackedScene" uid="uid://s3jteg5trroc" path="res://Player/Weapons/Arm.tscn" id="2_l67bv"]
+[ext_resource type="Shader" path="res://crosshair.gdshader" id="2_ld5u0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x85vq"]
+metallic_specular = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p1fbd"]
+material = SubResource( "StandardMaterial3D_x85vq" )
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8cbtr"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ygi4"]
+blend_mode = 1
+
+[sub_resource type="Environment" id="Environment_c7h71"]
+background_mode = 1
+background_color = Color(0, 0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mmh8s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ictsu"]
+
+[sub_resource type="GDScript" id="GDScript_fogtv"]
+resource_name = "FPS_Counter"
+script/source = "extends Label
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	self.text = str(round(1/delta)) + \" FPS\"
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dch5"]
+shader = ExtResource( "2_ld5u0" )
+shader_param/center_enabled = false
+shader_param/legs_enabled = true
+shader_param/inverted = false
+shader_param/color_id = null
+shader_param/color_0 = null
+shader_param/color_1 = null
+shader_param/color_2 = null
+shader_param/center_radius = 0.002
+shader_param/width = 0.001
+shader_param/len = 0.008
+shader_param/spacing = 0.006
+shader_param/spread = 0.902
+
+[sub_resource type="GDScript" id="GDScript_2qsag"]
+resource_name = "PointsSpawner"
+script/source = "extends Control
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func spawn_points_label(text: String, offset: Vector2):
+	var label = Label.new()
+	label.text = text
+	label.offset_bottom = -offset.y
+	label.offset_left = offset.x
+	self.add_child(label)
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(label, \"modulate\", Color.TRANSPARENT, 1)
+	tween.tween_property(label, \"offset_bottom\", label.offset_bottom - 150, 1)
+	tween.tween_callback(label.queue_free)
+	tween.play()
+
+"
+
+[node name="Player" type="CharacterBody3D"]
+slide_on_ceiling = false
+script = ExtResource( "1_e54fd" )
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+gi_mode = 1
+mesh = SubResource( "CylinderMesh_p1fbd" )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource( "CylinderShape3D_8cbtr" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.540498, 0)
+cull_mask = 1048573
+current = true
+fov = 80.0
+near = 0.001
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -1.4)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
+material = SubResource( "CanvasItemMaterial_7ygi4" )
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Camera3D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+scaling_3d_mode = 2
+size = Vector2i(1440, 900)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Camera3D/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.582, 0)
+cull_mask = 2
+environment = SubResource( "Environment_c7h71" )
+near = 0.001
+
+[node name="OnHand" type="Node3D" parent="Camera3D/SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
+
+[node name="Arm" parent="Camera3D/SubViewportContainer/SubViewport/Camera3D/OnHand" instance=ExtResource( "2_l67bv" )]
+transform = Transform3D(0.822323, 0.343214, -0.453862, -0.347431, 0.934521, 0.0772081, 0.450643, 0.0941954, 0.887721, 0.494713, 0, -0.607433)
+layers = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/SubViewportContainer/SubViewport/Camera3D/OnHand"]
+transform = Transform3D(1, 0, -1.26256e-07, 0, 0.266376, 0, 1.74846e-07, 0, 0.722099, 2.82196e-07, -0.588944, -1.61397)
+layers = 2
+mesh = SubResource( "BoxMesh_mmh8s" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_ictsu" )
+
+[node name="HUD" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="FPS_Label" type="Label" parent="HUD"]
+offset_right = 97.0
+offset_bottom = 32.0
+text = "n/d FPS"
+script = SubResource( "GDScript_fogtv" )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+material = SubResource( "ShaderMaterial_2dch5" )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PointsSpawner" type="Control" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+script = SubResource( "GDScript_2qsag" )
+
+[node name="RigidDynamicBody3D" type="RigidDynamicBody3D" parent="."]
