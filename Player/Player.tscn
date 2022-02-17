@@ -12,9 +12,6 @@ material = SubResource( "StandardMaterial3D_x85vq" )
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8cbtr"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ygi4"]
-blend_mode = 1
-
 [sub_resource type="Environment" id="Environment_c7h71"]
 background_mode = 1
 background_color = Color(0, 0, 0, 0)
@@ -22,6 +19,8 @@ background_color = Color(0, 0, 0, 0)
 [sub_resource type="BoxMesh" id="BoxMesh_mmh8s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ictsu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ygi4"]
 
 [sub_resource type="GDScript" id="GDScript_fogtv"]
 resource_name = "FPS_Counter"
@@ -80,6 +79,7 @@ func spawn_points_label(text: String, offset: Vector2):
 
 [node name="Player" type="CharacterBody3D"]
 slide_on_ceiling = false
+floor_constant_speed = true
 script = ExtResource( "1_e54fd" )
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -97,11 +97,31 @@ current = true
 fov = 80.0
 near = 0.001
 
+[node name="Camera3D" type="Camera3D" parent="Camera3D"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0.041502, 0)
+cull_mask = 2
+environment = SubResource( "Environment_c7h71" )
+near = 0.001
+
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0, 0)
 target_position = Vector3(0, 0, -1.4)
 
+[node name="OnHand" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.041502, 0)
+
+[node name="Arm" parent="Camera3D/OnHand" instance=ExtResource( "2_l67bv" )]
+layers = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/OnHand"]
+transform = Transform3D(1, 0, -1.26256e-07, 0, 0.266376, 0, 1.74846e-07, 0, 0.722099, 2.82196e-07, -0.588944, -1.61397)
+visible = false
+layers = 3
+mesh = SubResource( "BoxMesh_mmh8s" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_ictsu" )
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
+modulate = Color(1, 1, 1, 0.160784)
 material = SubResource( "CanvasItemMaterial_7ygi4" )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -114,25 +134,6 @@ scaling_3d_mode = 2
 size = Vector2i(1440, 900)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="Camera3D/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.582, 0)
-cull_mask = 2
-environment = SubResource( "Environment_c7h71" )
-near = 0.001
-
-[node name="OnHand" type="Node3D" parent="Camera3D/SubViewportContainer/SubViewport/Camera3D"]
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
-
-[node name="Arm" parent="Camera3D/SubViewportContainer/SubViewport/Camera3D/OnHand" instance=ExtResource( "2_l67bv" )]
-transform = Transform3D(0.822323, 0.343214, -0.453862, -0.347431, 0.934521, 0.0772081, 0.450643, 0.0941954, 0.887721, 0.494713, 0, -0.607433)
-layers = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/SubViewportContainer/SubViewport/Camera3D/OnHand"]
-transform = Transform3D(1, 0, -1.26256e-07, 0, 0.266376, 0, 1.74846e-07, 0, 0.722099, 2.82196e-07, -0.588944, -1.61397)
-layers = 2
-mesh = SubResource( "BoxMesh_mmh8s" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_ictsu" )
-
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -142,9 +143,6 @@ offset_right = 97.0
 offset_bottom = 32.0
 text = "n/d FPS"
 script = SubResource( "GDScript_fogtv" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="HUD"]
 material = SubResource( "ShaderMaterial_2dch5" )
@@ -157,5 +155,23 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 script = SubResource( "GDScript_2qsag" )
+
+[node name="Speed_Label" type="Label" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = 36.0
+offset_right = 53.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
 
 [node name="RigidDynamicBody3D" type="RigidDynamicBody3D" parent="."]

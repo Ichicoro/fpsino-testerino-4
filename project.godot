@@ -19,6 +19,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://addons/qodot/game_definitions/worldspawn_layers/liquid/lava.gd"
 }, {
+"base": "Node3D",
+"class": &"Level",
+"language": &"GDScript",
+"path": "res://Scenes/Level.gd"
+}, {
 "base": "Area3D",
 "class": &"LiquidLayer",
 "language": &"GDScript",
@@ -43,6 +48,11 @@ _global_script_classes=[{
 "class": &"PlayerInputData",
 "language": &"GDScript",
 "path": "res://Scripts/PlayerInputData.gd"
+}, {
+"base": "Node3D",
+"class": &"PlayerSpawn",
+"language": &"GDScript",
+"path": "res://Scripts/Entities/PlayerSpawn.gd"
 }, {
 "base": "RefCounted",
 "class": &"QodotDependencies",
@@ -182,11 +192,13 @@ _global_script_classes=[{
 _global_script_class_icons={
 "BaseWeapon": "",
 "LavaLayer": "",
+"Level": "",
 "LiquidLayer": "",
 "PhysicsBall": "",
 "PhysicsEntity": "",
 "Player": "",
 "PlayerInputData": "",
+"PlayerSpawn": "",
 "QodotDependencies": "",
 "QodotEntity": "",
 "QodotFGDBaseClass": "",
@@ -259,6 +271,8 @@ backwards={
 jump={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"command_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"command_pressed":false,"button_mask":16,"position":Vector2(598, 243),"global_position":Vector2(598, 243),"factor":0.9,"button_index":5,"pressed":true,"double_click":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"command_pressed":false,"button_mask":8,"position":Vector2(848, 209),"global_position":Vector2(848, 209),"factor":0.9,"button_index":4,"pressed":true,"double_click":false,"script":null)
 ]
 }
 horizontal={

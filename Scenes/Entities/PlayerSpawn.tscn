@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4u2iyv7jegsk"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/PlayerSpawn.gd" id="1_n62i4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kteom"]
+albedo_color = Color(0.403922, 0.690196, 0.372549, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gv2wl"]
+material = SubResource( "StandardMaterial3D_kteom" )
+height = 1.732
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cm34o"]
+material = SubResource( "StandardMaterial3D_kteom" )
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6l8yg"]
+material = SubResource( "StandardMaterial3D_kteom" )
+top_radius = 0.0
+bottom_radius = 0.39
+height = 0.264
+
+[node name="PlayerSpawn" type="Node3D"]
+script = ExtResource( "1_n62i4" )
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0381736, 0.203285, 0.193747)
+gi_mode = 1
+mesh = SubResource( "CapsuleMesh_gv2wl" )
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0381736, 0.203285, 0.193747)
+gi_mode = 1
+mesh = SubResource( "CapsuleMesh_gv2wl" )
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.315841, -0.40019, 0.0796693)
+gi_mode = 1
+mesh = SubResource( "CapsuleMesh_cm34o" )
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.23932, -0.400424, 0.307754)
+gi_mode = 1
+mesh = SubResource( "CapsuleMesh_cm34o" )
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 0, 0, 0, -1, 8.74228e-08, -1, 0, -0.153056, 0.383975, -0.271709)
+gi_mode = 1
+mesh = SubResource( "CylinderMesh_6l8yg" )
+skeleton = NodePath("../MeshInstance3D")
