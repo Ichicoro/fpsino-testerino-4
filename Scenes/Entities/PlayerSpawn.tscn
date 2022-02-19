@@ -24,27 +24,22 @@ height = 0.264
 script = ExtResource( "1_n62i4" )
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0381736, 0.203285, 0.193747)
-gi_mode = 1
-mesh = SubResource( "CapsuleMesh_gv2wl" )
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0381736, 0.203285, 0.193747)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.203, 0.194)
 gi_mode = 1
 mesh = SubResource( "CapsuleMesh_gv2wl" )
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.315841, -0.40019, 0.0796693)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.275896, -0.40019, 0.111102)
 gi_mode = 1
 mesh = SubResource( "CapsuleMesh_cm34o" )
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.23932, -0.400424, 0.307754)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.23932, -0.400424, 0.132338)
 gi_mode = 1
 mesh = SubResource( "CapsuleMesh_cm34o" )
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, -8.74228e-08, 0, 0, 0, -1, 8.74228e-08, -1, 0, -0.153056, 0.383975, -0.271709)
+transform = Transform3D(-1, -8.74228e-08, 0, 0, 0, -1, 8.74228e-08, -1, 0, 0, 0.522, -0.272)
 gi_mode = 1
 mesh = SubResource( "CylinderMesh_6l8yg" )
 skeleton = NodePath("../MeshInstance3D")

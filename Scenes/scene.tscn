@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://s4qfl58fkd3q"]
+[gd_scene load_steps=11 format=3 uid="uid://dx3bsc6cwqbi6"]
 
-[ext_resource type="Script" path="res://Scenes/Level.gd" id="1_ywfis"]
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_ywfis"]
 [ext_resource type="PackedScene" uid="uid://bni26pvvjmxp7" path="res://Scenes/karen.tscn" id="2_264dn"]
+[ext_resource type="Texture2D" uid="uid://ca1ypvva8efdj" path="res://addons/kenney_prototype_textures/light/texture_12.png" id="3_tadb7"]
 [ext_resource type="PackedScene" uid="uid://c4u2iyv7jegsk" path="res://Scenes/Entities/PlayerSpawn.tscn" id="4_3nv4c"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_13cyk"]
@@ -24,6 +25,8 @@ volumetric_fog_density = 0.0
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_g5sqx"]
 albedo_color = Color(0.65098, 0.294118, 0.321569, 1)
+albedo_texture = ExtResource( "3_tadb7" )
+uv1_triplanar = true
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_o33wg"]
 albedo_color = Color(1, 0.632, 0.04, 1)
@@ -40,8 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.59812, 0.263404, -1.64742)
 environment = SubResource( "Environment_11nq5" )
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.998971, -0.0452169, 0.00363805, 0.0264808, -0.516159, 0.856084, -0.0368316, 0.855299, 0.516825, -0.778092, 1.72439, 0)
-light_bake_mode = 1
+transform = Transform3D(-0.998971, -0.0452168, 0.00363804, 0.0264808, -0.516159, 0.856084, -0.0368316, 0.855299, 0.516825, -0.778092, 4.34377, 0)
 shadow_enabled = true
 directional_shadow_max_distance = 250.0
 
@@ -80,13 +82,19 @@ extents = Vector3(1.74967, 1.20274, 1.27702)
 material = SubResource( "FogMaterial_txp7y" )
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(-0.957908, -5.46604e-07, 0.287076, -0.276678, 0.2667, -0.923212, -0.0765628, -0.96378, -0.255475, 1.63174, 0.36865, -1.54103)
-light_energy = 6.04
+transform = Transform3D(0.153472, 0.241781, -0.958117, 0.985182, -0.112564, 0.129402, -0.0765628, -0.96378, -0.255474, 1.05366, 0.811778, -0.721387)
+light_energy = 3.44
+light_bake_mode = 1
 shadow_enabled = true
+spot_range = 3.4782
+spot_angle = 46.4062
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(-0.014944, 0.728692, -0.684679, -0.00361312, 0.684712, 0.728805, 0.999882, 0.0133651, -0.00759945, -1.08239, 0.524872, -2.64557)
+transform = Transform3D(-0.967068, -0.239044, -0.0873987, -0.0121747, 0.386439, -0.922234, 0.254229, -0.890799, -0.376623, -1.08239, 0.524872, -2.64557)
+visible = false
 light_energy = 4.68
+light_indirect_energy = 2.32
+light_bake_mode = 1
 shadow_enabled = true
 
 [node name="karen" parent="." instance=ExtResource( "2_264dn" )]

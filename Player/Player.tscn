@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1k3ks7jyxjfw"]
+[gd_scene load_steps=12 format=3 uid="uid://d1k3ks7jyxjfw"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_e54fd"]
-[ext_resource type="PackedScene" uid="uid://s3jteg5trroc" path="res://Player/Weapons/Arm.tscn" id="2_l67bv"]
+[ext_resource type="Script" path="res://Player/OnHand.gd" id="2_l45sm"]
 [ext_resource type="Shader" path="res://crosshair.gdshader" id="2_ld5u0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x85vq"]
@@ -15,10 +15,6 @@ material = SubResource( "StandardMaterial3D_x85vq" )
 [sub_resource type="Environment" id="Environment_c7h71"]
 background_mode = 1
 background_color = Color(0, 0, 0, 0)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mmh8s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ictsu"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ygi4"]
 
@@ -97,8 +93,19 @@ current = true
 fov = 80.0
 near = 0.001
 
+[node name="Torch" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0, 0)
+visible = false
+light_energy = 5.5
+light_indirect_energy = 2.0
+shadow_enabled = true
+spot_range = 28.8
+spot_angle = 23.1165
+spot_angle_attenuation = 0.466516
+
 [node name="Camera3D" type="Camera3D" parent="Camera3D"]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0.041502, 0)
+visible = false
 cull_mask = 2
 environment = SubResource( "Environment_c7h71" )
 near = 0.001
@@ -109,16 +116,7 @@ target_position = Vector3(0, 0, -1.4)
 
 [node name="OnHand" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.041502, 0)
-
-[node name="Arm" parent="Camera3D/OnHand" instance=ExtResource( "2_l67bv" )]
-layers = 3
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/OnHand"]
-transform = Transform3D(1, 0, -1.26256e-07, 0, 0.266376, 0, 1.74846e-07, 0, 0.722099, 2.82196e-07, -0.588944, -1.61397)
-visible = false
-layers = 3
-mesh = SubResource( "BoxMesh_mmh8s" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_ictsu" )
+script = ExtResource( "2_l45sm" )
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
 modulate = Color(1, 1, 1, 0.160784)
