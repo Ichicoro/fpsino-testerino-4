@@ -4,7 +4,7 @@ var last_slap = 0
 var slap_count = 0
 
 func _init() -> void:
-	self.weaponSlot = WeaponSlot.MELEE
+	self.weaponSlot = WeaponSlot.THREE
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,3 +34,9 @@ func slapp():
 			coll.apply_force(slap_direction, player.aim_raycast.get_collision_point())
 			player.get_node("HUD/PointsSpawner").spawn_points_label("slapp %d" % slap_count, Vector2(15, 50))
 			slap_count += 1
+
+func on_switch_out():
+	$AnimationPlayer.stop(true)
+
+func on_switch_in():
+	$AnimationPlayer.seek(0)

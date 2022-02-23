@@ -8,12 +8,14 @@ const MOUSE_SENSITIVITY = 2.25
 const MAX_AIR_WISH_SPEED = 20
 const AIR_ACCELERATE = 100		# Hu/39.97
 
-@onready var camera: Camera3D = $Camera3D
-@onready var aim_raycast: RayCast3D = $Camera3D/RayCast3D
-@onready var torch: SpotLight3D = $Camera3D/Torch
+@onready var head: Node3D = $Head
+@onready var camera: Camera3D = head.get_node("Camera")
+@onready var aim_raycast: RayCast3D = head.get_node("RayCast3D")
+@onready var torch: SpotLight3D = head.get_node("Torch")
 
-@onready var active_weapon: BaseWeapon = $Camera3D/OnHand/Arm
-@onready var OnHand = $Camera3D/OnHand
+@onready var OnHand = head.get_node("OnHand")
+@onready var active_weapon: BaseWeapon:
+	get: return OnHand.active_weapon
 
 # DEBUG NODES
 @onready var debug_speed_label = $HUD/Speed_Label
@@ -52,7 +54,7 @@ func _physics_process(delta):
 	if mouse_movement:
 		self.rotate_y(self.mouse_movement.y * -1 * delta * MOUSE_SENSITIVITY)
 		var x_rotation = self.mouse_movement.x * -1 * delta * MOUSE_SENSITIVITY
-		camera.rotation.x = clamp(camera.rotation.x + x_rotation, deg2rad(-90), deg2rad(90))
+		head.rotation.x = clamp(head.rotation.x + x_rotation, deg2rad(-90), deg2rad(90))
 	self.mouse_movement = Vector2.ZERO
 	
 	var jumping = false
@@ -114,7 +116,6 @@ func _input(event):
 		get_tree().quit()
 	
 	if Input.is_action_just_pressed("toggle_torch"):	# event is InputEventAction and event.action == 'toggle_torch'
-		print("porcodio?")
 		torch.visible = !torch.visible
 	
 	if event is InputEventMouseMotion:

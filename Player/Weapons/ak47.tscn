@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjrja8ty47xbc"]
+
+[ext_resource type="Script" path="res://Player/Weapons/ak47.gd" id="1_uhinx"]
+[ext_resource type="PackedScene" uid="uid://d24a2c6o0fyq4" path="res://Assets/low-poly_ak-47_type_2/scene.gltf" id="2_ldx2u"]
+[ext_resource type="AudioStream" uid="uid://dv3awwq4axcfb" path="res://Sounds/ak_sound.wav" id="3_tyu0t"]
+
+[node name="AK-47" type="Node3D"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+script = ExtResource( "1_uhinx" )
+
+[node name="model" parent="." instance=ExtResource( "2_ldx2u" )]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.187, -0.272, 0.073)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(1000, 0, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( "3_tyu0t" )
+volume_db = -6.562
+mix_target = 2
+max_polyphony = 10

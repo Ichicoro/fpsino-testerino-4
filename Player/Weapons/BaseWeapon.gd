@@ -2,11 +2,16 @@ extends Node
 class_name BaseWeapon
 
 enum WeaponSlot {
-	MELEE,
-	PRIMARY,
-	SECONDARY
+	ONE,
+	TWO,
+	THREE
 }
 
 var player: Player
-var weaponSlot: WeaponSlot = WeaponSlot.PRIMARY
+var weaponSlot: WeaponSlot = WeaponSlot.ONE
 
+func on_switch_in():
+	pass
+
+func on_switch_out():
+	pass

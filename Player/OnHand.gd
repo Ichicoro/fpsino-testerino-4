@@ -1,5 +1,15 @@
 extends Node3D
 
+enum GUN_STATE {
+	ACTIVE,
+	SWITCHING,
+	INACTIVE
+}
+
+var active_weapon: BaseWeapon
+
+signal weapon_switched(weapon: BaseWeapon)
+
 var player: Player:
 	get:
 		return player
@@ -7,17 +17,20 @@ var player: Player:
 		player = p
 		self._on_player_set(p)
 
+
 var weapons: Array = [
-	load("res://Player/Weapons/Arm.tscn").instantiate()
+	load("res://Player/Weapons/Arm.tscn").instantiate(),
+	load("res://Player/Weapons/ak47.tscn").instantiate(),
 ]
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _ready() -> void:
+	self._switch_weapon(BaseWeapon.WeaponSlot.THREE)
+
+
 func _process(delta: float) -> void:
 	pass
+
 
 func _on_player_set(player: Player) -> void:
 	for weapon in weapons:
@@ -25,8 +38,27 @@ func _on_player_set(player: Player) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_3:
-			add_child(weapons[0])
-		elif event.keycode == KEY_4:
-			remove_child(weapons[0])
+	if Input.is_action_just_pressed("slot1"):
+		_switch_weapon(BaseWeapon.WeaponSlot.ONE)
+	elif Input.is_action_just_pressed("slot2"):
+		_switch_weapon(BaseWeapon.WeaponSlot.TWO)
+	elif Input.is_action_just_pressed("slot3"):
+		_switch_weapon(BaseWeapon.WeaponSlot.THREE)
+
+
+func _switch_weapon(slot: BaseWeapon.WeaponSlot):
+	# TODO: play anim ecc ecc
+	# Try to get the correct weapon per the given `slot`
+	for weapon in weapons:
+		if weapon.weaponSlot == slot:
+			# Remove active weapon
+			if active_weapon:
+				await active_weapon.on_switch_out()
+			remove_child(active_weapon)
+			
+			# Add new weapon
+			add_child(weapon)
+			active_weapon = weapon
+			await active_weapon.on_switch_in()
+			emit_signal("weapon_switched", weapon)
+			break
