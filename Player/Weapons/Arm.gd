@@ -36,7 +36,8 @@ func slapp():
 			slap_count += 1
 
 func on_switch_out():
-	$AnimationPlayer.stop(true)
+	$AnimationPlayer.stop()
+	$AnimationPlayer.seek(0)
 
 func on_switch_in():
-	$AnimationPlayer.seek(0)
+	pass

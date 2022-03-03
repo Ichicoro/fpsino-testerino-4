@@ -84,7 +84,23 @@ func _physics_process(delta):
 	else:
 		_air_accelerate(direction, based.length(), AIR_ACCELERATE, delta)
 
-	debug_speed_label.text = "%0.3f" % _get_2d_velocity().length()
+	
+	# Apply camera effects
+	var camera_yaw := 0
+	var current_speed := _get_2d_velocity().length()
+	if is_on_floor() and current_speed > 0:
+		camera_yaw = -clamp(_get_2d_velocity().length() * input_dir.x, -25, 25)
+	else:
+		camera_yaw = 0
+	
+#	camera.rotation.z = move_toward(
+#		0,
+#		camera_yaw, 
+#		delta
+#	) * 2.5
+	
+	debug_speed_label.text = "%0.3f" % current_speed
+	
 	move_and_slide()
 
 

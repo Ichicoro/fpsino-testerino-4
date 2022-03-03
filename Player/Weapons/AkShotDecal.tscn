@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7aqlcwqra4tu"]
+
+[ext_resource type="Texture2D" uid="uid://bynvjbdjtujbw" path="res://addons/kenney_particle_pack/scorch_01.png" id="1_17ef7"]
+
+[node name="ShotDecal" type="Decal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.684293, -0.65555, 3.55406)
+extents = Vector3(0.11, 0.02, 0.1)
+texture_albedo = ExtResource( "1_17ef7" )
+modulate = Color(0, 0, 0, 1)

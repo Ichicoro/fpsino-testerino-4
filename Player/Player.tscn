@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1k3ks7jyxjfw"]
+[gd_scene load_steps=18 format=3 uid="uid://d1k3ks7jyxjfw"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_e54fd"]
 [ext_resource type="Script" path="res://Player/OnHand.gd" id="2_l45sm"]
 [ext_resource type="Shader" path="res://crosshair.gdshader" id="2_ld5u0"]
+[ext_resource type="Shader" path="res://Shaders/ui_blur.gdshader" id="4_i7rsb"]
 
 [sub_resource type="Environment" id="Environment_c7h71"]
 background_mode = 1
@@ -17,6 +18,12 @@ metallic_specular = 0.0
 material = SubResource( "StandardMaterial3D_x85vq" )
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8cbtr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37i63"]
+bg_color = Color(0.240234, 0.240234, 0.240234, 1)
+
+[sub_resource type="Theme" id="Theme_0btr4"]
+Panel/styles/panel = SubResource( "StyleBoxFlat_37i63" )
 
 [sub_resource type="GDScript" id="GDScript_fogtv"]
 resource_name = "FPS_Counter"
@@ -73,15 +80,25 @@ func spawn_points_label(text: String, offset: Vector2):
 
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjpgc"]
+bg_color = Color(0, 0, 0, 0.647059)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjdgs"]
+shader = ExtResource( "4_i7rsb" )
+shader_param/blur_amount = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wsh6y"]
+size = Vector3(0.236672, 1.91147, 0.742317)
+
 [node name="Player" type="CharacterBody3D"]
 slide_on_ceiling = false
 floor_constant_speed = true
 script = ExtResource( "1_e54fd" )
 
 [node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54, 0)
 
 [node name="Torch" type="SpotLight3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.540498, 0)
 visible = false
 light_energy = 5.5
 light_indirect_energy = 2.0
@@ -91,15 +108,14 @@ spot_angle = 23.1165
 spot_angle_attenuation = 0.466516
 
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.540498, 0)
 target_position = Vector3(0, 0, -1.4)
 
 [node name="OnHand" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.582, 0)
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 script = ExtResource( "2_l45sm" )
 
 [node name="Camera" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.540498, 0)
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 cull_mask = 1048573
 current = true
 fov = 80.0
@@ -137,6 +153,7 @@ shape = SubResource( "CylinderShape3D_8cbtr" )
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = SubResource( "Theme_0btr4" )
 
 [node name="FPS_Label" type="Label" parent="HUD"]
 offset_right = 97.0
@@ -174,4 +191,43 @@ __meta__ = {
 "_edit_use_custom_anchors": false
 }
 
+[node name="Panel" type="Panel" parent="HUD"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -276.0
+offset_top = -122.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource( "StyleBoxFlat_pjpgc" )
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel"]
+material = SubResource( "ShaderMaterial_tjdgs" )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.745098)
+
 [node name="RigidDynamicBody3D" type="RigidDynamicBody3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="WallrunningArea3Ds" type="Node3D" parent="."]
+
+[node name="RightWallArea3D" type="Area3D" parent="WallrunningArea3Ds"]
+
+[node name="RightWallCollision" type="CollisionShape3D" parent="WallrunningArea3Ds/RightWallArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503742, 0.040022, 0)
+shape = SubResource( "BoxShape3D_wsh6y" )
+
+[node name="LeftWallArea3D" type="Area3D" parent="WallrunningArea3Ds"]
+
+[node name="LeftWallCollision" type="CollisionShape3D" parent="WallrunningArea3Ds/LeftWallArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.504, 0.04, 0)
+shape = SubResource( "BoxShape3D_wsh6y" )
