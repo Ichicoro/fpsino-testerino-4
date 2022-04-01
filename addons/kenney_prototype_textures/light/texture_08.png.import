@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://dp16ba3wo5iul"
-path="res://.godot/imported/texture_08.png-7b5c5c16cd076d2bbc9eeb33a454861b.stex"
+path="res://.godot/imported/texture_08.png-7b5c5c16cd076d2bbc9eeb33a454861b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_prototype_textures/light/texture_08.png"
-dest_files=["res://.godot/imported/texture_08.png-7b5c5c16cd076d2bbc9eeb33a454861b.stex"]
+dest_files=["res://.godot/imported/texture_08.png-7b5c5c16cd076d2bbc9eeb33a454861b.ctex"]
 
 [params]
 

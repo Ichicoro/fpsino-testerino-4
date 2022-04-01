@@ -1,10 +1,10 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://6lxgwmis6k2h"
-path.s3tc="res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.s3tc.stex"
-path.etc2="res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.etc2.stex"
+path.s3tc="res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.s3tc.ctex"
+path.etc2="res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -13,7 +13,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_prototype_textures/light/texture_06.png"
-dest_files=["res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.s3tc.stex", "res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.etc2.stex"]
+dest_files=["res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.s3tc.ctex", "res://.godot/imported/texture_06.png-88331a9f246e47943dc01d0128a4ca4e.etc2.ctex"]
 
 [params]
 

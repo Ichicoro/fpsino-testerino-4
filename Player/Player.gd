@@ -9,7 +9,7 @@ const MAX_AIR_WISH_SPEED = 20
 const AIR_ACCELERATE = 100		# Hu/39.97
 
 @onready var head: Node3D = $Head
-@onready var camera: Camera3D = head.get_node("Camera")
+@onready var camera: Camera3D = head.get_node("Viewport/CameraViewportContainer/GameViewport/Camera")
 @onready var aim_raycast: RayCast3D = head.get_node("RayCast3D")
 @onready var torch: SpotLight3D = head.get_node("Torch")
 
@@ -34,7 +34,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # ===== UTILS =====
 func _get_2d_velocity() -> Vector2:
-	return Vector2(motion_velocity.x, motion_velocity.z)
+	return Vector2(velocity.x, velocity.z)
 
 
 func _ready():
@@ -61,14 +61,14 @@ func _physics_process(delta):
 	
 	# Add the gravity.
 	if not is_on_floor():
-		motion_velocity.y -= gravity * delta
+		velocity.y -= gravity * delta
 	else:
-		last_ground_velocity = Vector2(motion_velocity.x, motion_velocity.z)
+		last_ground_velocity = Vector2(velocity.x, velocity.z)
 
 	# Handle Jump
 	if Input.is_action_pressed("jump") and is_on_floor():
 		jumping = true
-		motion_velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("left", "right", "forward", "backwards")
@@ -76,11 +76,11 @@ func _physics_process(delta):
 	var direction = based.normalized()
 	if is_on_floor() and not jumping:
 		if direction:
-			motion_velocity.x = direction.x * SPEED
-			motion_velocity.z = direction.z * SPEED
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
 		else:
-			motion_velocity.x = move_toward(motion_velocity.x, 0, SPEED)
-			motion_velocity.z = move_toward(motion_velocity.z, 0, SPEED)
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
 	else:
 		_air_accelerate(direction, based.length(), AIR_ACCELERATE, delta)
 
@@ -93,13 +93,15 @@ func _physics_process(delta):
 	else:
 		camera_yaw = 0
 	
+	self.camera.global_transform = self.head.global_transform
+	
 #	camera.rotation.z = move_toward(
 #		0,
 #		camera_yaw, 
 #		delta
 #	) * 2.5
 	
-	debug_speed_label.text = "%0.3f" % current_speed
+	debug_speed_label.text = "%0.2f" % current_speed
 	
 	move_and_slide()
 
@@ -108,12 +110,11 @@ func _air_accelerate(wish_dir: Vector3, wish_speed: float, airaccelerate: float,
 	var addspeed: float = 0
 	var accelspeed: float = 0
 	var currentspeed: float = 0
-#	var wish_dir_3d = Vector3(wish_dir.x, 0, wish_dir.y)
 	
 	if wish_speed > MAX_AIR_WISH_SPEED:
 		wish_speed = MAX_AIR_WISH_SPEED
 	
-	currentspeed = motion_velocity.dot(wish_dir)
+	currentspeed = velocity.dot(wish_dir)
 	
 	addspeed = wish_speed - currentspeed
 	if addspeed <= 0:
@@ -124,7 +125,17 @@ func _air_accelerate(wish_dir: Vector3, wish_speed: float, airaccelerate: float,
 	if accelspeed > addspeed:
 		accelspeed = addspeed
 	
-	motion_velocity += accelspeed * wish_dir
+	velocity += accelspeed * wish_dir
+
+
+func wall_running() -> bool:
+	if is_on_wall_only():
+		if Input.is_action_pressed("jump"):
+			var wall_normal := get_wall_normal()
+			var bas = transform.basis * velocity
+			velocity.y /= 2
+			return true
+	return false
 
 
 func _input(event):

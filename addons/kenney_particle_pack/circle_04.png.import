@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://nmtuwd7micci"
-path="res://.godot/imported/circle_04.png-12d514f48d237d9e79dd4fad9a955638.stex"
+path="res://.godot/imported/circle_04.png-12d514f48d237d9e79dd4fad9a955638.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/circle_04.png"
-dest_files=["res://.godot/imported/circle_04.png-12d514f48d237d9e79dd4fad9a955638.stex"]
+dest_files=["res://.godot/imported/circle_04.png-12d514f48d237d9e79dd4fad9a955638.ctex"]
 
 [params]
 

@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://btumb4h51u1f5"
-path="res://.godot/imported/magic_01.png-a69c8d058708f3d13cf8f3da47f94f9d.stex"
+path="res://.godot/imported/magic_01.png-a69c8d058708f3d13cf8f3da47f94f9d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/magic_01.png"
-dest_files=["res://.godot/imported/magic_01.png-a69c8d058708f3d13cf8f3da47f94f9d.stex"]
+dest_files=["res://.godot/imported/magic_01.png-a69c8d058708f3d13cf8f3da47f94f9d.ctex"]
 
 [params]
 

@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://dwft50bmlrqgu"
-path="res://.godot/imported/star_07.png-270a23685f71e687b5f82d6e0794ffda.stex"
+path="res://.godot/imported/star_07.png-270a23685f71e687b5f82d6e0794ffda.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/star_07.png"
-dest_files=["res://.godot/imported/star_07.png-270a23685f71e687b5f82d6e0794ffda.stex"]
+dest_files=["res://.godot/imported/star_07.png-270a23685f71e687b5f82d6e0794ffda.ctex"]
 
 [params]
 

@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://dfb1asl855f5c"
-path="res://.godot/imported/muzzle_05.png-4495385d4c2765cb6d5ce751f8e0b962.stex"
+path="res://.godot/imported/muzzle_05.png-4495385d4c2765cb6d5ce751f8e0b962.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/muzzle_05.png"
-dest_files=["res://.godot/imported/muzzle_05.png-4495385d4c2765cb6d5ce751f8e0b962.stex"]
+dest_files=["res://.godot/imported/muzzle_05.png-4495385d4c2765cb6d5ce751f8e0b962.ctex"]
 
 [params]
 

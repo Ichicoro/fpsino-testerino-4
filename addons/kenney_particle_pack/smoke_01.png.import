@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://qe5qft5wdv74"
-path="res://.godot/imported/smoke_01.png-f3378a523cc5b37aa0d0818eab7923e2.stex"
+path="res://.godot/imported/smoke_01.png-f3378a523cc5b37aa0d0818eab7923e2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/smoke_01.png"
-dest_files=["res://.godot/imported/smoke_01.png-f3378a523cc5b37aa0d0818eab7923e2.stex"]
+dest_files=["res://.godot/imported/smoke_01.png-f3378a523cc5b37aa0d0818eab7923e2.ctex"]
 
 [params]
 

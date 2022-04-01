@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://b8r7wkg6twmia"
-path="res://.godot/imported/trace_04.png-11dd0ac0edc787aae21f58a82b2e74d6.stex"
+path="res://.godot/imported/trace_04.png-11dd0ac0edc787aae21f58a82b2e74d6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/trace_04.png"
-dest_files=["res://.godot/imported/trace_04.png-11dd0ac0edc787aae21f58a82b2e74d6.stex"]
+dest_files=["res://.godot/imported/trace_04.png-11dd0ac0edc787aae21f58a82b2e74d6.ctex"]
 
 [params]
 

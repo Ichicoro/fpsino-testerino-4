@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://b2mj48y8i8jcc"
-path="res://.godot/imported/trace_01_rotated.png-14f31320f062688d1d469a841893dc5e.stex"
+path="res://.godot/imported/trace_01_rotated.png-14f31320f062688d1d469a841893dc5e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/rotated/trace_01_rotated.png"
-dest_files=["res://.godot/imported/trace_01_rotated.png-14f31320f062688d1d469a841893dc5e.stex"]
+dest_files=["res://.godot/imported/trace_01_rotated.png-14f31320f062688d1d469a841893dc5e.ctex"]
 
 [params]
 

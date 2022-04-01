@@ -251,7 +251,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg")
 
 [gui]
 
@@ -337,8 +337,6 @@ common/physics_ticks_per_second=120
 [rendering]
 
 shadows/directional_shadow/soft_shadow_quality=3
-scaling_3d/mode=1
-scaling_3d/scale=0.75
 anti_aliasing/quality/screen_space_aa=1
 anti_aliasing/quality/use_debanding=true
 shadows/shadow_atlas/quadrant_0_subdiv=3

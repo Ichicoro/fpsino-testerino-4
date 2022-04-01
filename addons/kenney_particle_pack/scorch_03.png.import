@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bqjdsqcxvrr44"
-path="res://.godot/imported/scorch_03.png-44e72463b931759356bc18eeb22da879.stex"
+path="res://.godot/imported/scorch_03.png-44e72463b931759356bc18eeb22da879.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/scorch_03.png"
-dest_files=["res://.godot/imported/scorch_03.png-44e72463b931759356bc18eeb22da879.stex"]
+dest_files=["res://.godot/imported/scorch_03.png-44e72463b931759356bc18eeb22da879.ctex"]
 
 [params]
 

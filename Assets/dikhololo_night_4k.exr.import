@@ -1,10 +1,10 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://cvs2ya526q1lb"
-path.s3tc="res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.s3tc.stex"
-path.etc2="res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.etc2.stex"
+path.s3tc="res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.s3tc.ctex"
+path.etc2="res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -13,7 +13,7 @@ metadata={
 [deps]
 
 source_file="res://Assets/dikhololo_night_4k.exr"
-dest_files=["res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.s3tc.stex", "res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.etc2.stex"]
+dest_files=["res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.s3tc.ctex", "res://.godot/imported/dikhololo_night_4k.exr-a655a2183c6157fd85f957733c2c890c.etc2.ctex"]
 
 [params]
 

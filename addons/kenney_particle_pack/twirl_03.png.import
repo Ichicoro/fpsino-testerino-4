@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bik8t2j6akwrh"
-path="res://.godot/imported/twirl_03.png-c58325fee0c93702c3429e69a1cfe62b.stex"
+path="res://.godot/imported/twirl_03.png-c58325fee0c93702c3429e69a1cfe62b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/twirl_03.png"
-dest_files=["res://.godot/imported/twirl_03.png-c58325fee0c93702c3429e69a1cfe62b.stex"]
+dest_files=["res://.godot/imported/twirl_03.png-c58325fee0c93702c3429e69a1cfe62b.ctex"]
 
 [params]
 

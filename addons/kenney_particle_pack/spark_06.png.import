@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://dglku5do4eqn4"
-path="res://.godot/imported/spark_06.png-2149877f56d761f9fef62e5b224acc12.stex"
+path="res://.godot/imported/spark_06.png-2149877f56d761f9fef62e5b224acc12.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/spark_06.png"
-dest_files=["res://.godot/imported/spark_06.png-2149877f56d761f9fef62e5b224acc12.stex"]
+dest_files=["res://.godot/imported/spark_06.png-2149877f56d761f9fef62e5b224acc12.ctex"]
 
 [params]
 

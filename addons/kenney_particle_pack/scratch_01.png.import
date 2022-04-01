@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bkm1yhgju8hmf"
-path="res://.godot/imported/scratch_01.png-1291aab6b34bb80847cb4eb62a74be13.stex"
+path="res://.godot/imported/scratch_01.png-1291aab6b34bb80847cb4eb62a74be13.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/scratch_01.png"
-dest_files=["res://.godot/imported/scratch_01.png-1291aab6b34bb80847cb4eb62a74be13.stex"]
+dest_files=["res://.godot/imported/scratch_01.png-1291aab6b34bb80847cb4eb62a74be13.ctex"]
 
 [params]
 

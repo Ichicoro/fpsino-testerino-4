@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://ch4qu5mr67mgf"
-path="res://.godot/imported/slash_03.png-5959d060c2fedede512f4722f832cfd2.stex"
+path="res://.godot/imported/slash_03.png-5959d060c2fedede512f4722f832cfd2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://addons/kenney_particle_pack/slash_03.png"
-dest_files=["res://.godot/imported/slash_03.png-5959d060c2fedede512f4722f832cfd2.stex"]
+dest_files=["res://.godot/imported/slash_03.png-5959d060c2fedede512f4722f832cfd2.ctex"]
 
 [params]
 

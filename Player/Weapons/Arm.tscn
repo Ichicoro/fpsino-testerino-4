@@ -80,6 +80,7 @@ tracks/3/keys = {
 [node name="Arm" type="CSGBox3D"]
 transform = Transform3D(0.822323, 0.343214, -0.453862, -0.347431, 0.934521, 0.0772081, 0.450643, 0.0941954, 0.887721, 0.494713, 0, -0.607433)
 visible = false
+layers = 3
 gi_mode = 2
 size = Vector3(0.180069, 0.802366, 0.113111)
 material = SubResource( "ORMMaterial3D_w328l" )
