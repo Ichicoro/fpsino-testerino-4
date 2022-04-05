@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://cb68nyrfkhuhx"]
+
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_dfwmf"]
+[ext_resource type="PackedScene" uid="uid://by6u8e3eduqd1" path="res://Scenes/main.glb" id="1_pxs7b"]
+[ext_resource type="Script" path="res://Scripts/Entities/PlayerSpawn.gd" id="3_dculj"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_l6yeg"]
+
+[sub_resource type="Sky" id="Sky_atiem"]
+sky_material = SubResource( "PhysicalSkyMaterial_l6yeg" )
+
+[sub_resource type="Environment" id="Environment_u43wk"]
+background_mode = 2
+sky = SubResource( "Sky_atiem" )
+ambient_light_source = 3
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+
+[node name="Level" type="Node3D"]
+script = ExtResource( "1_dfwmf" )
+
+[node name="main" parent="." instance=ExtResource( "1_pxs7b" )]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -18.1465, -23.1668, -35.3584)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.62056, -0.706541, 0.340157, 0, 0.433785, 0.901016, -0.784159, -0.559134, 0.269189, -2.43633, 30.5296, -33.7395)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( "Environment_u43wk" )
+
+[node name="PlayerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.88134, -21.8978, -39.3129)
+script = ExtResource( "3_dculj" )
