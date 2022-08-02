@@ -3,8 +3,9 @@
 //LICENSE : CC0
 //COMATIBLE WITH : GLES2, GLES3, WEBGL
 //SHADERTOY LINK : https://www.shadertoy.com/view/XlsczN
-
 shader_type canvas_item;
+//render_mode blend_add;
+
 
 uniform float blur_amount :hint_range(0.0, 8.0) = 3.0;
 uniform float signal_quality :hint_range(0.0, 0.5) = 0; 

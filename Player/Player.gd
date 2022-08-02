@@ -142,12 +142,9 @@ func _input(event):
 	if event is InputEventKey and event.keycode == KEY_ESCAPE:
 		get_tree().quit()
 	
-	if Input.is_action_just_pressed("toggle_torch"):	# event is InputEventAction and event.action == 'toggle_torch'
+	if Input.is_action_just_pressed("toggle_torch"):
 		torch.visible = !torch.visible
 	
 	if event is InputEventMouseMotion:
 		var vec = event.relative
 		self.mouse_movement = Vector2(vec.y / 10, vec.x / 10)
-#		self.rotate_y(self.mouse_movement.y * -1/50 * MOUSE_SENSITIVITY)
-#		var x_rotation = self.mouse_movement.x * -1/50 * MOUSE_SENSITIVITY
-#		camera.rotation.x = clamp(camera.rotation.x + x_rotation, deg2rad(-90), deg2rad(90))

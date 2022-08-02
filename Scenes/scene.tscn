@@ -1,20 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://dx3bsc6cwqbi6"]
+[gd_scene load_steps=13 format=3 uid="uid://dx3bsc6cwqbi6"]
 
 [ext_resource type="Script" path="res://Scripts/Level.gd" id="1_ywfis"]
 [ext_resource type="PackedScene" uid="uid://bni26pvvjmxp7" path="res://Scenes/karen.tscn" id="2_264dn"]
+[ext_resource type="Texture2D" uid="uid://chvl8d3dmihpl" path="res://Assets/Skyboxes/panorama_image.png" id="3_jgow1"]
 [ext_resource type="Texture2D" uid="uid://ca1ypvva8efdj" path="res://addons/kenney_prototype_textures/light/texture_12.png" id="3_tadb7"]
 [ext_resource type="PackedScene" uid="uid://c4u2iyv7jegsk" path="res://Scenes/Entities/PlayerSpawn.tscn" id="4_3nv4c"]
 [ext_resource type="PackedScene" uid="uid://b7aqlcwqra4tu" path="res://Player/Weapons/AkShotDecal.tscn" id="5_qrr3s"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_13cyk"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hin0q"]
+panorama = ExtResource("3_jgow1")
 
-[sub_resource type="Sky" id="Sky_nbqb8"]
-sky_material = SubResource( "PhysicalSkyMaterial_13cyk" )
-process_mode = 2
+[sub_resource type="Sky" id="Sky_88qha"]
+sky_material = SubResource("PanoramaSkyMaterial_hin0q")
 
 [sub_resource type="Environment" id="Environment_11nq5"]
 background_mode = 2
-sky = SubResource( "Sky_nbqb8" )
+sky = SubResource("Sky_88qha")
 ambient_light_source = 3
 ambient_light_color = Color(0.329412, 0.501961, 0.623529, 1)
 tonemap_mode = 3
@@ -26,7 +27,7 @@ volumetric_fog_density = 0.0
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_g5sqx"]
 albedo_color = Color(0.65098, 0.294118, 0.321569, 1)
-albedo_texture = ExtResource( "3_tadb7" )
+albedo_texture = ExtResource("3_tadb7")
 uv1_triplanar = true
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_o33wg"]
@@ -35,13 +36,13 @@ albedo_color = Color(1, 0.632, 0.04, 1)
 [sub_resource type="FogMaterial" id="FogMaterial_txp7y"]
 
 [node name="Level" type="Node3D"]
-script = ExtResource( "1_ywfis" )
+script = ExtResource("1_ywfis")
 
-[node name="PlayerSpawn" parent="." instance=ExtResource( "4_3nv4c" )]
+[node name="PlayerSpawn" parent="." instance=ExtResource("4_3nv4c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.59812, 0.263404, -1.64742)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "Environment_11nq5" )
+environment = SubResource("Environment_11nq5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.998971, -0.0452168, 0.00363804, 0.0264808, -0.516159, 0.856084, -0.0368316, 0.855299, 0.516825, -0.778092, 4.34377, 0)
@@ -49,38 +50,33 @@ shadow_enabled = true
 directional_shadow_max_distance = 250.0
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-gi_mode = 1
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000144958, -0.712976, -0.00104141)
-gi_mode = 1
 size = Vector3(20, 0.098, 20)
-material = SubResource( "ORMMaterial3D_g5sqx" )
+material = SubResource("ORMMaterial3D_g5sqx")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.475712, 2.01263, -0.0879278)
-gi_mode = 1
 size = Vector3(5, 0.5, 5)
-material = SubResource( "ORMMaterial3D_g5sqx" )
+material = SubResource("ORMMaterial3D_g5sqx")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3.40315, -0.234941, -0.0879278)
-gi_mode = 1
 size = Vector3(5, 2, 5)
-material = SubResource( "ORMMaterial3D_g5sqx" )
+material = SubResource("ORMMaterial3D_g5sqx")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 3.404, -0.025, 3.996)
-gi_mode = 1
 size = Vector3(2, 1, 5.478)
-material = SubResource( "ORMMaterial3D_o33wg" )
+material = SubResource("ORMMaterial3D_o33wg")
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.121793, 0.878909, 4.52249)
 visible = false
 extents = Vector3(1.74967, 1.20274, 1.27702)
-material = SubResource( "FogMaterial_txp7y" )
+material = SubResource("FogMaterial_txp7y")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(0.153472, 0.241781, -0.958117, 0.985182, -0.112564, 0.129402, -0.0765628, -0.96378, -0.255474, 1.05366, 0.811778, -0.721387)
@@ -98,7 +94,7 @@ light_indirect_energy = 2.32
 light_bake_mode = 1
 shadow_enabled = true
 
-[node name="karen" parent="." instance=ExtResource( "2_264dn" )]
+[node name="karen" parent="." instance=ExtResource("2_264dn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.681753, 0, -2.58531)
 
-[node name="ShotDecal" parent="." instance=ExtResource( "5_qrr3s" )]
+[node name="ShotDecal" parent="." instance=ExtResource("5_qrr3s")]

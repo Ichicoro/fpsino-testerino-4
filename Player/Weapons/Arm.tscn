@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://s3jteg5trroc"]
+[gd_scene load_steps=7 format=3 uid="uid://s3jteg5trroc"]
 
 [ext_resource type="Script" path="res://Player/Weapons/Arm.gd" id="1_l8w7l"]
 [ext_resource type="AudioStream" uid="uid://b6c0erifuh3ei" path="res://Sounds/slap_sfx.wav" id="2_odd8p"]
@@ -77,19 +77,26 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j30xu"]
+_data = {
+"RESET": SubResource("Animation_v70yv"),
+"slap": SubResource("Animation_5ofqr")
+}
+
 [node name="Arm" type="CSGBox3D"]
 transform = Transform3D(0.822323, 0.343214, -0.453862, -0.347431, 0.934521, 0.0772081, 0.450643, 0.0941954, 0.887721, 0.494713, 0, -0.607433)
 visible = false
 layers = 3
 gi_mode = 2
 size = Vector3(0.180069, 0.802366, 0.113111)
-material = SubResource( "ORMMaterial3D_w328l" )
-script = ExtResource( "1_l8w7l" )
+material = SubResource("ORMMaterial3D_w328l")
+script = ExtResource("1_l8w7l")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( "Animation_v70yv" )
-anims/slap = SubResource( "Animation_5ofqr" )
+libraries = {
+"": SubResource("AnimationLibrary_j30xu")
+}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( "2_odd8p" )
+stream = ExtResource("2_odd8p")
 volume_db = -16.866

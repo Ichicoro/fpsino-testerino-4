@@ -1,36 +1,33 @@
-[gd_scene load_steps=24 format=3 uid="uid://d1k3ks7jyxjfw"]
+[gd_scene load_steps=24 format=3 uid="uid://diqr0s0isowh3"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_e54fd"]
 [ext_resource type="Script" path="res://Player/Head.gd" id="2_12ep4"]
 [ext_resource type="Script" path="res://Player/OnHand.gd" id="2_l45sm"]
 [ext_resource type="Shader" path="res://crosshair.gdshader" id="2_ld5u0"]
 [ext_resource type="Shader" path="res://Shaders/ui_blur.gdshader" id="4_i7rsb"]
-[ext_resource type="FontData" uid="uid://bv23emf2dlg2n" path="res://Assets/VCR_OSD_MONO_1.001.ttf" id="4_pbufn"]
+[ext_resource type="FontVariation" uid="uid://753n4y4m6qke" path="res://Assets/VCR_OSD_MONO.tres" id="4_pbufn"]
 [ext_resource type="Shader" path="res://addons/GodotRetro/Screen Shaders/NTSC.gdshader" id="4_qownq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj014"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ye57"]
-material = SubResource( "StandardMaterial3D_yj014" )
+material = SubResource("StandardMaterial3D_yj014")
 size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x85vq"]
 metallic_specular = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_p1fbd"]
-material = SubResource( "StandardMaterial3D_x85vq" )
+material = SubResource("StandardMaterial3D_x85vq")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8cbtr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37i63"]
 bg_color = Color(0.240234, 0.240234, 0.240234, 1)
 
-[sub_resource type="Font" id="Font_rqwyk"]
-data/0 = ExtResource( "4_pbufn" )
-
 [sub_resource type="Theme" id="Theme_0btr4"]
-default_font = SubResource( "Font_rqwyk" )
-Panel/styles/panel = SubResource( "StyleBoxFlat_37i63" )
+default_font = ExtResource("4_pbufn")
+Panel/styles/panel = SubResource("StyleBoxFlat_37i63")
 
 [sub_resource type="GDScript" id="GDScript_fogtv"]
 resource_name = "FPS_Counter"
@@ -64,9 +61,12 @@ func spawn_points_label(text: String, offset: Vector2):
 	label.offset_left = offset.x
 	self.add_child(label)
 	
+	var initialY = label.position.y
+	
 	var tween = get_tree().create_tween()
-	tween.tween_property(label, \"modulate\", Color.TRANSPARENT, 1)
-	tween.tween_property(label, \"offset_bottom\", label.offset_bottom - 150, 1)
+	tween.set_speed_scale(2)
+	tween.parallel().tween_property(label, \"position:y\", initialY - 50, 1).as_relative().from_current().set_trans(Tween.EASE_OUT)
+	tween.parallel().tween_property(label, \"modulate\", Color.TRANSPARENT, 1).set_trans(Tween.EASE_OUT)
 	tween.tween_callback(label.queue_free)
 	tween.play()
 
@@ -76,45 +76,66 @@ func spawn_points_label(text: String, offset: Vector2):
 bg_color = Color(0, 0, 0, 0.647059)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tjdgs"]
-shader = ExtResource( "4_i7rsb" )
+shader = ExtResource("4_i7rsb")
 shader_param/blur_amount = 2.0
 
-[sub_resource type="OpenSimplexNoise" id="OpenSimplexNoise_nklok"]
-seed = 36
+[sub_resource type="GDScript" id="GDScript_dkel2"]
+script/source = "extends Camera3D
 
-[sub_resource type="NoiseTexture" id="NoiseTexture_p1lse"]
-noise = SubResource( "OpenSimplexNoise_nklok" )
+@export var MainCamera: Camera3D
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pye35"]
-shader = ExtResource( "4_qownq" )
-shader_param/blur_amount = 0.852
-shader_param/signal_quality = 0.0
-shader_param/bottom_strenth = 0.0
-shader_param/grain_tex = SubResource( "NoiseTexture_p1lse" )
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if not MainCamera:
+		return
+	
+	if MainCamera.global_position:
+		self.global_position = MainCamera.global_position
+	if MainCamera.global_rotation:
+		self.global_rotation = MainCamera.global_rotation
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2dch5"]
-shader = ExtResource( "2_ld5u0" )
+shader = ExtResource("2_ld5u0")
 shader_param/center_enabled = false
-shader_param/legs_enabled = true
-shader_param/inverted = false
-shader_param/color_id = null
+shader_param/center_radius = 0.002
 shader_param/color_0 = null
 shader_param/color_1 = null
 shader_param/color_2 = null
-shader_param/center_radius = 0.002
-shader_param/width = 0.001
+shader_param/color_id = null
+shader_param/inverted = false
+shader_param/legs_enabled = true
 shader_param/len = 0.008
 shader_param/spacing = 0.006
 shader_param/spread = 0.902
+shader_param/width = 0.001
+
+[sub_resource type="FastNoiseLite" id="OpenSimplexNoise_nklok"]
+seed = 36
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_p1lse"]
+noise = SubResource("OpenSimplexNoise_nklok")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pye35"]
+shader = ExtResource("4_qownq")
+shader_param/blur_amount = 0.852
+shader_param/bottom_strenth = 0.0
+shader_param/grain_tex = SubResource("NoiseTexture_p1lse")
+shader_param/signal_quality = 0.0
 
 [node name="Player" type="CharacterBody3D"]
 slide_on_ceiling = false
 floor_constant_speed = true
-script = ExtResource( "1_e54fd" )
+script = ExtResource("1_e54fd")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54, 0)
-script = ExtResource( "2_12ep4" )
+script = ExtResource("2_12ep4")
 
 [node name="Torch" type="SpotLight3D" parent="Head"]
 visible = false
@@ -131,7 +152,7 @@ target_position = Vector3(0, 0, -1.4)
 
 [node name="OnHand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
-script = ExtResource( "2_l45sm" )
+script = ExtResource("2_l45sm")
 
 [node name="Viewport" type="Control" parent="Head"]
 anchor_right = 1.0
@@ -162,20 +183,19 @@ near = 0.001
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13668e-07, 0, -2.3659)
 visible = false
 layers = 3
-mesh = SubResource( "BoxMesh_8ye57" )
+mesh = SubResource("BoxMesh_8ye57")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-gi_mode = 1
-mesh = SubResource( "CylinderMesh_p1fbd" )
+mesh = SubResource("CylinderMesh_p1fbd")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource( "CylinderShape3D_8cbtr" )
+shape = SubResource("CylinderShape3D_8cbtr")
 
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = SubResource( "Theme_0btr4" )
+theme = SubResource("Theme_0btr4")
 
 [node name="FPS_Label" type="Label" parent="HUD"]
 anchor_left = 1.0
@@ -185,14 +205,14 @@ offset_bottom = 32.0
 theme_override_font_sizes/font_size = 20
 text = "n/d FPS"
 horizontal_alignment = 2
-script = SubResource( "GDScript_fogtv" )
+script = SubResource("GDScript_fogtv")
 
 [node name="PointsSpawner" type="Control" parent="HUD"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-script = SubResource( "GDScript_2qsag" )
+script = SubResource("GDScript_2qsag")
 
 [node name="Speed_Label" type="Label" parent="HUD"]
 anchor_left = 0.5
@@ -207,10 +227,6 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
-__meta__ = {
-"_edit_layout_mode": 1,
-"_edit_use_custom_anchors": false
-}
 
 [node name="Panel" type="Panel" parent="HUD"]
 anchor_left = 1.0
@@ -223,38 +239,56 @@ offset_right = -40.0
 offset_bottom = -40.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/panel = SubResource( "StyleBoxFlat_pjpgc" )
-__meta__ = {
-"_edit_layout_mode": 1,
-"_edit_use_custom_anchors": false
-}
+theme_override_styles/panel = SubResource("StyleBoxFlat_pjpgc")
 
 [node name="ColorRect" type="ColorRect" parent="HUD/Panel"]
-material = SubResource( "ShaderMaterial_tjdgs" )
+material = SubResource("ShaderMaterial_tjdgs")
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.745098)
 
-[node name="GameFilter" type="ColorRect" parent="HUD"]
-material = SubResource( "ShaderMaterial_pye35" )
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="HUD"]
+position = Vector2(727, 447)
+scale = Vector2(7.61, 4.89)
+copy_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD"]
+show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+stretch = true
 
-[node name="Crosshair" type="ColorRect" parent="HUD"]
-material = SubResource( "ShaderMaterial_2dch5" )
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="SubViewport" type="SubViewport" parent="HUD"]
+[node name="SubViewport" type="SubViewport" parent="HUD/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(480, 300)
+size = Vector2i(1440, 900)
 render_target_update_mode = 4
 
-[node name="WeaponCamera" type="Camera3D" parent="HUD/SubViewport"]
+[node name="WeaponCamera" type="Camera3D" parent="HUD/SubViewportContainer/SubViewport" node_paths=PackedStringArray("MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.581502, 0)
-visible = false
 cull_mask = 2
 near = 0.001
+script = SubResource("GDScript_dkel2")
+MainCamera = NodePath("../../../../Head/Viewport/CameraViewportContainer/GameViewport/Camera")
+
+[node name="Crosshair" type="ColorRect" parent="HUD"]
+material = SubResource("ShaderMaterial_2dch5")
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = -5.0
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="HUD"]
+position = Vector2(721, 449)
+scale = Vector2(7.21, 4.54)
+y_sort_enabled = true
+
+[node name="GameFilter" type="ColorRect" parent="HUD"]
+material = SubResource("ShaderMaterial_pye35")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_layout_mode = 1
 
 [node name="RigidDynamicBody3D" type="RigidDynamicBody3D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjrja8ty47xbc"]
+[gd_scene load_steps=8 format=3 uid="uid://bjrja8ty47xbc"]
 
 [ext_resource type="Script" path="res://Player/Weapons/ak47.gd" id="1_uhinx"]
 [ext_resource type="PackedScene" uid="uid://d24a2c6o0fyq4" path="res://Assets/low-poly_ak-47_type_2/scene.gltf" id="2_ldx2u"]
@@ -100,28 +100,68 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-0.0184738, 0.00980963, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ih7km"]
+_data = {
+"RESET": SubResource("Animation_htesn"),
+"reload": SubResource("Animation_rp0j5"),
+"shoot": SubResource("Animation_ib673")
+}
+
 [node name="AK-47" type="Node3D"]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
-script = ExtResource( "1_uhinx" )
+script = ExtResource("1_uhinx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( "Animation_htesn" )
-anims/reload = SubResource( "Animation_rp0j5" )
-anims/shoot = SubResource( "Animation_ib673" )
+libraries = {
+"": SubResource("AnimationLibrary_ih7km")
+}
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(1000, 0, 0)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( "3_tyu0t" )
-volume_db = -6.562
+stream = ExtResource("3_tyu0t")
+volume_db = -12.89
 mix_target = 2
 max_polyphony = 10
 
 [node name="BasePosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.323, -0.156, 0.119)
 
-[node name="model" parent="BasePosition" instance=ExtResource( "2_ldx2u" )]
+[node name="model" parent="BasePosition" instance=ExtResource("2_ldx2u")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Cube015_0" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="0"]
+layers = 2
+
+[node name="Cube015_1" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="1"]
+layers = 2
+
+[node name="Cube015_2" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="2"]
+layers = 2
+
+[node name="Cube015_3" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="3"]
+layers = 2
+
+[node name="Cube015_4" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="4"]
+layers = 2
+
+[node name="Cube015_5" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="5"]
+layers = 2
+
+[node name="Cube015_6" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="6"]
+layers = 2
+
+[node name="Cube015_7" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="7"]
+layers = 2
+
+[node name="Cube015_8" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="8"]
+layers = 2
+
+[node name="Cube015_9" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="9"]
+layers = 2
+
+[node name="Cube015_10" parent="BasePosition/model/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Root/Armature/Cube015" index="10"]
+layers = 2
 
 [editable path="BasePosition/model"]
