@@ -27,7 +27,7 @@ func slapp():
 	if player.aim_raycast.is_colliding():
 		$AudioStreamPlayer.play(0.15)
 		var coll: Node3D = player.aim_raycast.get_collider()
-		if coll is RigidDynamicBody3D and coll.name == "karen":
+		if coll is RigidBody3D and coll.name == "karen":
 			slap_count += 1
 			player.get_node("HUD/PointsSpawner").spawn_points_label("+50 points! (slapp %d)" % slap_count, Vector2(15, 50))
 			var slap_direction = player.get_global_transform().basis.z*-100

@@ -1,0 +1,127 @@
+[gd_scene load_steps=17 format=3 uid="uid://cashmqk18du01"]
+
+[ext_resource type="Texture2D" uid="uid://d0ctmtgj28bmc" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_micb8"]
+[ext_resource type="Script" path="res://addons/star_field/star_field_manager.gd" id="2_ixbnv"]
+[ext_resource type="Texture2D" uid="uid://spge2fpgdlhq" path="res://addons/kenney_particle_pack/star_01.png" id="4_bfbev"]
+
+[sub_resource type="Gradient" id="Gradient_bea75"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.0181818, 0.240909, 0.468182, 0.590909, 0.854545, 0.931818, 1)
+colors = PackedColorArray(0.161311, 0.00966242, 0.136918, 1, 0.19, 0.038, 0.103867, 1, 0.159836, 0.0165975, 0.136799, 1, 0.15872, 0.0317439, 0.0872604, 1, 0.2, 0.04, 0.109333, 1, 0.158332, 0.0316663, 0.0870544, 1, 0.156863, 0.0313726, 0.0862745, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h4au0"]
+gradient = SubResource("Gradient_bea75")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3r5mk"]
+panorama = SubResource("GradientTexture2D_h4au0")
+
+[sub_resource type="Sky" id="Sky_80vmq"]
+sky_material = SubResource("PanoramaSkyMaterial_3r5mk")
+
+[sub_resource type="Environment" id="Environment_3ccwc"]
+background_mode = 2
+background_color = Color(0.231373, 0.0666667, 0.176471, 1)
+sky = SubResource("Sky_80vmq")
+ambient_light_source = 3
+ambient_light_color = Color(0.231373, 0.0666667, 0.176471, 1)
+reflected_light_source = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5601"]
+albedo_color = Color(1, 0, 0.5, 1)
+albedo_texture = ExtResource("1_micb8")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6bw4k"]
+material = SubResource("StandardMaterial3D_a5601")
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hlnhd"]
+data = PackedVector3Array(-5, 0.05, 5, 5, 0.05, 5, -5, -0.05, 5, 5, 0.05, 5, 5, -0.05, 5, -5, -0.05, 5, 5, 0.05, -5, -5, 0.05, -5, 5, -0.05, -5, -5, 0.05, -5, -5, -0.05, -5, 5, -0.05, -5, 5, 0.05, 5, 5, 0.05, -5, 5, -0.05, 5, 5, 0.05, -5, 5, -0.05, -5, 5, -0.05, 5, -5, 0.05, -5, -5, 0.05, 5, -5, -0.05, -5, -5, 0.05, 5, -5, -0.05, 5, -5, -0.05, -5, 5, 0.05, 5, -5, 0.05, 5, 5, 0.05, -5, -5, 0.05, 5, -5, 0.05, -5, 5, 0.05, -5, -5, -0.05, 5, 5, -0.05, 5, -5, -0.05, -5, 5, -0.05, 5, 5, -0.05, -5, -5, -0.05, -5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2saj0"]
+emission_shape = 2
+emission_sphere_radius = 14.71
+direction = Vector3(0, 0, 0)
+spread = 80.27
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwfe6"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("4_bfbev")
+billboard_mode = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y22as"]
+material = SubResource("StandardMaterial3D_fwfe6")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[sub_resource type="Animation" id="Animation_d7apv"]
+resource_name = "cazzo"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 3.14768, 1.59679, -4.60035, 0.5, 1, 0.547074, 1.59679, -4.60035, 1, 1, 3.14768, 1.59679, -4.60035)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g4stp"]
+_data = {
+"cazzo": SubResource("Animation_d7apv")
+}
+
+[node name="SpaceSky1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3ccwc")
+
+[node name="MeshInstance3d" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6bw4k")
+skeleton = NodePath("../WorldEnvironment")
+
+[node name="StaticBody3d" type="StaticBody3D" parent="MeshInstance3d"]
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="MeshInstance3d/StaticBody3d"]
+shape = SubResource("ConcavePolygonShape3D_hlnhd")
+
+[node name="StarField" type="Node3D" parent="."]
+visible = false
+script = ExtResource("2_ixbnv")
+mag_ref = 8.0
+mag_limit = 8.0
+star_labels_visible = false
+celestial_coords = Vector3(0, 0, 0)
+camera_path = NodePath("")
+
+[node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.515158, 0.857095, 0, -0.857095, 0.515158, 0, 2.96052, 0)
+
+[node name="GpuParticles3d" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508312, 0)
+amount = 1000
+lifetime = 600.0
+preprocess = 2.67
+speed_scale = 2.0
+explosiveness = 1.0
+visibility_aabb = AABB(-12.7491, -10.2491, -23.6565, 25.4983, 20.4981, 47.313)
+process_material = SubResource("ParticleProcessMaterial_2saj0")
+draw_pass_1 = SubResource("PlaneMesh_y22as")
+
+[node name="SpotLight3d" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.647993, -0.67907, 0.344918, -0.408569, 0.692105, 0.595032, -0.642788, 0.244654, -0.725926, 3.14768, 1.59679, -4.60035)
+light_energy = 20.0
+spot_range = 8.36155
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpotLight3d"]
+autoplay = "cazzo"
+libraries = {
+"": SubResource("AnimationLibrary_g4stp")
+}
+
+[node name="Camera3d" type="Camera3D" parent="."]
+transform = Transform3D(-0.766044, -0.205289, 0.609124, 0, 0.947629, 0.319373, -0.642788, 0.244654, -0.725926, 4.65506, 2.84847, -5.9761)

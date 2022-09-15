@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://diqr0s0isowh3"]
+[gd_scene load_steps=47 format=3 uid="uid://diqr0s0isowh3"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_e54fd"]
 [ext_resource type="Script" path="res://Player/Head.gd" id="2_12ep4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://Shaders/ui_blur.gdshader" id="4_i7rsb"]
 [ext_resource type="FontVariation" uid="uid://753n4y4m6qke" path="res://Assets/VCR_OSD_MONO.tres" id="4_pbufn"]
 [ext_resource type="Shader" path="res://addons/GodotRetro/Screen Shaders/NTSC.gdshader" id="4_qownq"]
+[ext_resource type="Shader" path="res://Shaders/Curved.gdshader" id="9_1b8hk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj014"]
 
@@ -21,6 +22,222 @@ metallic_specular = 0.0
 material = SubResource("StandardMaterial3D_x85vq")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8cbtr"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_e14yy"]
+input_name = "screen_texture"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_oq6p7"]
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7o17x"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_4ex5o"]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_na0nu"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_cpc3f"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatUniform_q3y32"]
+parameter_name = "DistAmount"
+default_value_enabled = true
+default_value = 2.0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_btns6"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_begou"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatUniform_yw7t1"]
+parameter_name = "FloatUniform"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_0pwap"]
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_keom4"]
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_wan7v"]
+default_input_values = [0, 0.0, 1, 1.0]
+operator = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_mgcfr"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ov4ra"]
+default_input_values = [0, 0.0, 1, -2.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_agyka"]
+default_input_values = [0, 0.0, 1, 1.0]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ipdgk"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_xphid"]
+operator = 2
+
+[sub_resource type="VisualShader" id="VisualShader_3x7cl"]
+code = "shader_type canvas_item;
+uniform float DistAmount = 2;
+uniform float FloatUniform;
+
+
+
+void vertex() {
+// FloatParameter:13
+	float n_out13p0 = DistAmount;
+
+
+// Input:14
+	vec2 n_out14p0 = UV;
+
+
+// Input:15
+	vec2 n_out15p0 = UV;
+
+
+// VectorDecompose:3
+	float n_out3p0 = n_out15p0.x;
+	float n_out3p1 = n_out15p0.y;
+
+
+// VectorDecompose:2
+	float n_out2p0 = n_out15p0.x;
+	float n_out2p1 = n_out15p0.y;
+
+
+// FloatOp:4
+	float n_in4p1 = 1.00000;
+	float n_out4p0 = n_out2p0 - n_in4p1;
+
+
+// FloatOp:5
+	float n_out5p0 = n_out2p0 * n_out4p0;
+
+
+// FloatOp:6
+	float n_in6p1 = -2.00000;
+	float n_out6p0 = n_out2p1 * n_in6p1;
+
+
+// FloatParameter:16
+	float n_out16p0 = FloatUniform;
+
+
+// FloatOp:7
+	float n_out7p0 = n_out6p0 + n_out16p0;
+
+
+// FloatOp:8
+	float n_out8p0 = n_out5p0 * n_out7p0;
+
+
+// FloatOp:9
+	float n_out9p0 = n_out13p0 * n_out8p0;
+
+
+// FloatOp:10
+	float n_out10p0 = n_out3p1 + n_out9p0;
+
+
+// VectorCompose:11
+	vec2 n_out11p0 = vec2(n_out3p0, n_out10p0);
+
+
+	vec3 n_out12p0;
+// If:12
+	float n_in12p1 = 0.00000;
+	float n_in12p2 = 0.00001;
+	if(abs(n_out13p0 - n_in12p1) < n_in12p2)
+	{
+		n_out12p0 = vec3(n_out14p0, 0.0);
+	}
+	else if(n_out13p0 < n_in12p1)
+	{
+		n_out12p0 = vec3(n_out14p0, 0.0);
+	}
+	else
+	{
+		n_out12p0 = vec3(n_out11p0, 0.0);
+	}
+
+
+// Output:0
+	UV = vec2(n_out12p0.xy);
+	COLOR.rgb = vec3(n_out14p0, 0.0);
+
+
+}
+
+void fragment() {
+// Input:4
+	vec2 n_out4p0 = UV;
+
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(SCREEN_TEXTURE, n_out4p0);
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out3p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-933.661, -104.823)
+mode = 1
+flags/light_only = false
+nodes/vertex/2/node = SubResource("VisualShaderNodeVectorDecompose_0pwap")
+nodes/vertex/2/position = Vector2(-1440, 360)
+nodes/vertex/3/node = SubResource("VisualShaderNodeVectorDecompose_keom4")
+nodes/vertex/3/position = Vector2(-1140, 20)
+nodes/vertex/4/node = SubResource("VisualShaderNodeFloatOp_wan7v")
+nodes/vertex/4/position = Vector2(-1200, 600)
+nodes/vertex/5/node = SubResource("VisualShaderNodeFloatOp_mgcfr")
+nodes/vertex/5/position = Vector2(-1040, 500)
+nodes/vertex/6/node = SubResource("VisualShaderNodeFloatOp_ov4ra")
+nodes/vertex/6/position = Vector2(-1160, 340)
+nodes/vertex/7/node = SubResource("VisualShaderNodeFloatOp_agyka")
+nodes/vertex/7/position = Vector2(-940, 340)
+nodes/vertex/8/node = SubResource("VisualShaderNodeFloatOp_ipdgk")
+nodes/vertex/8/position = Vector2(-760, 400)
+nodes/vertex/9/node = SubResource("VisualShaderNodeFloatOp_xphid")
+nodes/vertex/9/position = Vector2(-580, 300)
+nodes/vertex/10/node = SubResource("VisualShaderNodeFloatOp_4ex5o")
+nodes/vertex/10/position = Vector2(-360, 200)
+nodes/vertex/11/node = SubResource("VisualShaderNodeVectorCompose_na0nu")
+nodes/vertex/11/position = Vector2(-140, 280)
+nodes/vertex/12/node = SubResource("VisualShaderNodeIf_cpc3f")
+nodes/vertex/12/position = Vector2(120, 140)
+nodes/vertex/13/node = SubResource("VisualShaderNodeFloatUniform_q3y32")
+nodes/vertex/13/position = Vector2(-980, -200)
+nodes/vertex/14/node = SubResource("VisualShaderNodeInput_btns6")
+nodes/vertex/14/position = Vector2(-120, 460)
+nodes/vertex/15/node = SubResource("VisualShaderNodeInput_begou")
+nodes/vertex/15/position = Vector2(-1740, 160)
+nodes/vertex/16/node = SubResource("VisualShaderNodeFloatUniform_yw7t1")
+nodes/vertex/16/position = Vector2(-1560, 540)
+nodes/vertex/connections = PackedInt32Array(11, 0, 12, 4, 2, 0, 4, 0, 2, 0, 5, 0, 4, 0, 5, 1, 2, 1, 6, 0, 6, 0, 7, 0, 5, 0, 8, 0, 7, 0, 8, 1, 8, 0, 9, 1, 9, 0, 10, 1, 3, 1, 10, 0, 3, 0, 11, 0, 10, 0, 11, 1, 12, 0, 0, 1, 13, 0, 9, 0, 13, 0, 12, 0, 14, 0, 0, 2, 15, 0, 3, 0, 15, 0, 2, 0, 14, 0, 12, 3, 14, 0, 12, 5, 16, 0, 7, 1)
+nodes/fragment/0/position = Vector2(760, 0)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_e14yy")
+nodes/fragment/2/position = Vector2(220, 20)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_oq6p7")
+nodes/fragment/3/position = Vector2(480, 20)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_7o17x")
+nodes/fragment/4/position = Vector2(313.817, 267.861)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 0, 3, 0, 3, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oagch"]
+shader = SubResource("VisualShader_3x7cl")
+shader_parameter/DistAmount = 1.477
+shader_parameter/FloatUniform = null
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37i63"]
 bg_color = Color(0.240234, 0.240234, 0.240234, 1)
@@ -77,7 +294,7 @@ bg_color = Color(0, 0, 0, 0.647059)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tjdgs"]
 shader = ExtResource("4_i7rsb")
-shader_param/blur_amount = 2.0
+shader_parameter/blur_amount = 2.0
 
 [sub_resource type="GDScript" id="GDScript_dkel2"]
 script/source = "extends Camera3D
@@ -102,36 +319,54 @@ func _process(delta: float) -> void:
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2dch5"]
 shader = ExtResource("2_ld5u0")
-shader_param/center_enabled = false
-shader_param/center_radius = 0.002
-shader_param/color_0 = null
-shader_param/color_1 = null
-shader_param/color_2 = null
-shader_param/color_id = null
-shader_param/inverted = false
-shader_param/legs_enabled = true
-shader_param/len = 0.008
-shader_param/spacing = 0.006
-shader_param/spread = 0.902
-shader_param/width = 0.001
+shader_parameter/center_enabled = false
+shader_parameter/center_radius = 0.002
+shader_parameter/color_0 = null
+shader_parameter/color_1 = null
+shader_parameter/color_2 = null
+shader_parameter/color_id = null
+shader_parameter/inverted = false
+shader_parameter/legs_enabled = true
+shader_parameter/len = 0.008
+shader_parameter/spacing = 0.006
+shader_parameter/spread = 0.902
+shader_parameter/width = 0.001
 
 [sub_resource type="FastNoiseLite" id="OpenSimplexNoise_nklok"]
 seed = 36
 
-[sub_resource type="NoiseTexture" id="NoiseTexture_p1lse"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture_p1lse"]
 noise = SubResource("OpenSimplexNoise_nklok")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pye35"]
 shader = ExtResource("4_qownq")
-shader_param/blur_amount = 0.852
-shader_param/bottom_strenth = 0.0
-shader_param/grain_tex = SubResource("NoiseTexture_p1lse")
-shader_param/signal_quality = 0.0
+shader_parameter/blur_amount = 0.852
+shader_parameter/bottom_strenth = 0.0
+shader_parameter/grain_tex = SubResource("NoiseTexture_p1lse")
+shader_parameter/signal_quality = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_orul7"]
+shader = ExtResource("9_1b8hk")
+shader_parameter/dist_amount = 0.143
+
+[sub_resource type="GDScript" id="GDScript_r8dod"]
+script/source = "extends ColorRect
+
+@export var enabled = true
+
+func _ready():
+	if enabled:
+		self.visible = true
+
+func _process(delta):
+	pass
+"
 
 [node name="Player" type="CharacterBody3D"]
 slide_on_ceiling = false
 floor_constant_speed = true
 script = ExtResource("1_e54fd")
+MOUSE_SENSITIVITY = 1.5
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54, 0)
@@ -155,21 +390,27 @@ transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 script = ExtResource("2_l45sm")
 
 [node name="Viewport" type="Control" parent="Head"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CameraViewportContainer" type="SubViewportContainer" parent="Head/Viewport"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stretch = true
-stretch_shrink = 3
 
 [node name="GameViewport" type="SubViewport" parent="Head/Viewport/CameraViewportContainer"]
-transparent_bg = true
 handle_input_locally = false
 scaling_3d_mode = 1
 scaling_3d_scale = 2.0
-size = Vector2i(480, 300)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="Camera" type="Camera3D" parent="Head/Viewport/CameraViewportContainer/GameViewport"]
@@ -193,28 +434,68 @@ skeleton = NodePath("../..")
 shape = SubResource("CylinderShape3D_8cbtr")
 
 [node name="HUD" type="Control" parent="."]
+material = SubResource("ShaderMaterial_oagch")
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_0btr4")
 
+[node name="ColorRect3" type="ColorRect" parent="HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 34.0
+offset_bottom = 58.0
+grow_horizontal = 2
+color = Color(0, 0.290196, 1, 1)
+metadata/_edit_layout_mode = 1
+
+[node name="ColorRect2" type="ColorRect" parent="HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -144.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0.290196, 1, 1)
+metadata/_edit_layout_mode = 1
+
 [node name="FPS_Label" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -97.0
-offset_bottom = 32.0
+offset_top = 32.0
+offset_bottom = 64.0
+grow_horizontal = 0
 theme_override_font_sizes/font_size = 20
 text = "n/d FPS"
 horizontal_alignment = 2
 script = SubResource("GDScript_fogtv")
 
 [node name="PointsSpawner" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = SubResource("GDScript_2qsag")
 
 [node name="Speed_Label" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -229,6 +510,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Panel" type="Panel" parent="HUD"]
+layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -243,26 +526,30 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pjpgc")
 
 [node name="ColorRect" type="ColorRect" parent="HUD/Panel"]
 material = SubResource("ShaderMaterial_tjdgs")
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 0.745098)
 
-[node name="BackBufferCopy2" type="BackBufferCopy" parent="HUD"]
-position = Vector2(727, 447)
-scale = Vector2(7.61, 4.89)
-copy_mode = 2
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="HUD"]
+visible = false
 show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="HUD/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1440, 900)
-render_target_update_mode = 4
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
 
 [node name="WeaponCamera" type="Camera3D" parent="HUD/SubViewportContainer/SubViewport" node_paths=PackedStringArray("MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.581502, 0)
@@ -273,22 +560,38 @@ MainCamera = NodePath("../../../../Head/Viewport/CameraViewportContainer/GameVie
 
 [node name="Crosshair" type="ColorRect" parent="HUD"]
 material = SubResource("ShaderMaterial_2dch5")
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -5.0
 offset_bottom = -5.0
-
-[node name="BackBufferCopy" type="BackBufferCopy" parent="HUD"]
-position = Vector2(721, 449)
-scale = Vector2(7.21, 4.54)
-y_sort_enabled = true
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GameFilter" type="ColorRect" parent="HUD"]
+visible = false
 material = SubResource("ShaderMaterial_pye35")
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_layout_mode = 1
 
-[node name="RigidDynamicBody3D" type="RigidDynamicBody3D" parent="."]
+[node name="CurvdShader" type="ColorRect" parent="HUD"]
+visible = false
+material = SubResource("ShaderMaterial_orul7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_r8dod")
+enabled = false
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = true
+
+[node name="RigidDynamicBody3D" type="RigidBody3D" parent="."]

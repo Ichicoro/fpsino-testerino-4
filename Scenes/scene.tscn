@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dx3bsc6cwqbi6"]
+[gd_scene load_steps=17 format=3 uid="uid://dx3bsc6cwqbi6"]
 
 [ext_resource type="Script" path="res://Scripts/Level.gd" id="1_ywfis"]
 [ext_resource type="PackedScene" uid="uid://bni26pvvjmxp7" path="res://Scenes/karen.tscn" id="2_264dn"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ca1ypvva8efdj" path="res://addons/kenney_prototype_textures/light/texture_12.png" id="3_tadb7"]
 [ext_resource type="PackedScene" uid="uid://c4u2iyv7jegsk" path="res://Scenes/Entities/PlayerSpawn.tscn" id="4_3nv4c"]
 [ext_resource type="PackedScene" uid="uid://b7aqlcwqra4tu" path="res://Player/Weapons/AkShotDecal.tscn" id="5_qrr3s"]
+[ext_resource type="Texture2D" uid="uid://cteq4ymswknkb" path="res://Assets/Textures/P2Light/refract_light_color.png" id="7_kivi5"]
+[ext_resource type="Texture2D" uid="uid://bour3aqq5pie0" path="res://Assets/Textures/P2Light/refract_light_normal.png" id="8_7q4pq"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hin0q"]
 panorama = ExtResource("3_jgow1")
@@ -34,6 +36,26 @@ uv1_triplanar = true
 albedo_color = Color(1, 0.632, 0.04, 1)
 
 [sub_resource type="FogMaterial" id="FogMaterial_txp7y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqnc0"]
+albedo_texture = ExtResource("7_kivi5")
+emission_texture = ExtResource("7_kivi5")
+normal_enabled = true
+normal_texture = ExtResource("8_7q4pq")
+heightmap_deep_parallax = true
+heightmap_min_layers = 7
+heightmap_max_layers = 16
+heightmap_flip_tangent = true
+heightmap_texture = ExtResource("7_kivi5")
+heightmap_flip_texture = true
+subsurf_scatter_texture = ExtResource("8_7q4pq")
+detail_albedo = ExtResource("7_kivi5")
+detail_normal = ExtResource("8_7q4pq")
+point_size = 128.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uto5m"]
+material = SubResource("StandardMaterial3D_mqnc0")
+size = Vector2(0.2, 1)
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_ywfis")
@@ -98,3 +120,8 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.681753, 0, -2.58531)
 
 [node name="ShotDecal" parent="." instance=ExtResource("5_qrr3s")]
+visible = false
+
+[node name="MeshInstance3d" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 2.33236, -0.592793, 0.077564)
+mesh = SubResource("PlaneMesh_uto5m")

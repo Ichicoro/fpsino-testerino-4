@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://couj7n0f4sdbl"]
 
-[ext_resource type="PackedScene" uid="uid://d1k3ks7jyxjfw" path="res://Player/Player.tscn" id="2_p7eb1"]
+[ext_resource type="PackedScene" uid="uid://diqr0s0isowh3" path="res://Player/Player.tscn" id="2_p7eb1"]
 [ext_resource type="ArrayMesh" uid="uid://bsmekbxw131o1" path="res://hl1_test.obj" id="3_5utuo"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_sj5cd"]
 
 [sub_resource type="Sky" id="Sky_6g1rx"]
-sky_material = SubResource( "PanoramaSkyMaterial_sj5cd" )
+sky_material = SubResource("PanoramaSkyMaterial_sj5cd")
 
 [sub_resource type="Environment" id="Environment_cwdsh"]
 background_mode = 2
-sky = SubResource( "Sky_6g1rx" )
+sky = SubResource("Sky_6g1rx")
 tonemap_mode = 3
 sdfgi_enabled = true
 glow_enabled = true
@@ -23,7 +23,7 @@ data = PackedVector3Array(-4.16, -0.16, 0.64, -4.16, -0.16, -4.16, -4.16, 0.16, 
 [node name="Level" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "Environment_cwdsh" )
+environment = SubResource("Environment_cwdsh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.981852, 0.0641626, -0.178464, 0.161544, 0.210001, 0.964263, 0.0993472, -0.975594, 0.195824, -1.50402, 1.50764, 2.62737)
@@ -41,51 +41,47 @@ shadow_enabled = true
 spot_range = 6.58057
 spot_angle = 36.4334
 
-[node name="Player" parent="." instance=ExtResource( "2_p7eb1" )]
+[node name="Player" parent="." instance=ExtResource("2_p7eb1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.21164, 1.47849, 0.267163)
 
 [node name="lvl_geom" type="Node3D" parent="."]
 
 [node name="hl1" type="MeshInstance3D" parent="lvl_geom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.51665)
-gi_mode = 1
-mesh = ExtResource( "3_5utuo" )
+mesh = ExtResource("3_5utuo")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="lvl_geom/hl1"]
 
 [node name="@@20969" type="CollisionShape3D" parent="lvl_geom/hl1/StaticBody3D2"]
-shape = SubResource( "ConcavePolygonShape3D_u74nh" )
+shape = SubResource("ConcavePolygonShape3D_u74nh")
 
 [node name="hl2" type="MeshInstance3D" parent="lvl_geom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.32996)
-gi_mode = 1
-mesh = ExtResource( "3_5utuo" )
+mesh = ExtResource("3_5utuo")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="lvl_geom/hl2"]
 
 [node name="20969" type="CollisionShape3D" parent="lvl_geom/hl2/StaticBody3D2"]
-shape = SubResource( "ConcavePolygonShape3D_u74nh" )
+shape = SubResource("ConcavePolygonShape3D_u74nh")
 
 [node name="hl3" type="MeshInstance3D" parent="lvl_geom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.81286, 0, 1.51665)
-gi_mode = 1
-mesh = ExtResource( "3_5utuo" )
+mesh = ExtResource("3_5utuo")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="lvl_geom/hl3"]
 
 [node name="20969" type="CollisionShape3D" parent="lvl_geom/hl3/StaticBody3D2"]
-shape = SubResource( "ConcavePolygonShape3D_u74nh" )
+shape = SubResource("ConcavePolygonShape3D_u74nh")
 
 [node name="hl4" type="MeshInstance3D" parent="lvl_geom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.81286, 0, 6.32996)
-gi_mode = 1
-mesh = ExtResource( "3_5utuo" )
+mesh = ExtResource("3_5utuo")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="lvl_geom/hl4"]
 
 [node name="20969" type="CollisionShape3D" parent="lvl_geom/hl4/StaticBody3D2"]
-shape = SubResource( "ConcavePolygonShape3D_u74nh" )
+shape = SubResource("ConcavePolygonShape3D_u74nh")

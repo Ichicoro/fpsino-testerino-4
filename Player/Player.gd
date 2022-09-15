@@ -3,7 +3,7 @@ class_name Player
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-const MOUSE_SENSITIVITY = 2.25
+@export var MOUSE_SENSITIVITY = 2.25
 
 const MAX_AIR_WISH_SPEED = 20
 const AIR_ACCELERATE = 100		# Hu/39.97
@@ -54,7 +54,7 @@ func _physics_process(delta):
 	if mouse_movement:
 		self.rotate_y(self.mouse_movement.y * -1 * delta * MOUSE_SENSITIVITY)
 		var x_rotation = self.mouse_movement.x * -1 * delta * MOUSE_SENSITIVITY
-		head.rotation.x = clamp(head.rotation.x + x_rotation, deg2rad(-90), deg2rad(90))
+		head.rotation.x = clamp(head.rotation.x + x_rotation, deg_to_rad(-90), deg_to_rad(90))
 	self.mouse_movement = Vector2.ZERO
 	
 	var jumping = false
@@ -147,4 +147,4 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		var vec = event.relative
-		self.mouse_movement = Vector2(vec.y / 10, vec.x / 10)
+		self.mouse_movement = Vector2(vec.y, vec.x) / 10

@@ -25,7 +25,7 @@ func _on_killzone_body_entered(body: Node3D):
 	print(body)
 	body.position = respawn_point
 	body.rotation = Vector3.ZERO
-	if body is RigidDynamicBody3D:
+	if body is RigidBody3D:
 		body.set_axis_velocity(Vector3.ZERO)	# TODO: hmm...?
 	if body is Player:
 		body.camera.rotation = Vector3.ZERO
