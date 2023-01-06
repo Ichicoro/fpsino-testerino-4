@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://cashmqk18du01"]
+[gd_scene load_steps=18 format=3 uid="uid://cashmqk18du01"]
 
 [ext_resource type="Texture2D" uid="uid://d0ctmtgj28bmc" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_micb8"]
 [ext_resource type="Script" path="res://addons/star_field/star_field_manager.gd" id="2_ixbnv"]
 [ext_resource type="Texture2D" uid="uid://spge2fpgdlhq" path="res://addons/kenney_particle_pack/star_01.png" id="4_bfbev"]
+[ext_resource type="PackedScene" uid="uid://diqr0s0isowh3" path="res://Player/Player.tscn" id="4_epcmb"]
 
 [sub_resource type="Gradient" id="Gradient_bea75"]
 interpolation_mode = 2
@@ -105,8 +106,7 @@ transform = Transform3D(1, 0, 0, 0, 0.515158, 0.857095, 0, -0.857095, 0.515158, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508312, 0)
 amount = 1000
 lifetime = 600.0
-preprocess = 2.67
-speed_scale = 2.0
+speed_scale = 0.0
 explosiveness = 1.0
 visibility_aabb = AABB(-12.7491, -10.2491, -23.6565, 25.4983, 20.4981, 47.313)
 process_material = SubResource("ParticleProcessMaterial_2saj0")
@@ -125,3 +125,7 @@ libraries = {
 
 [node name="Camera3d" type="Camera3D" parent="."]
 transform = Transform3D(-0.766044, -0.205289, 0.609124, 0, 0.947629, 0.319373, -0.642788, 0.244654, -0.725926, 4.65506, 2.84847, -5.9761)
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("4_epcmb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.741417, 1.09674, 2.49796)

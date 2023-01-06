@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dx3bsc6cwqbi6"]
+[gd_scene load_steps=19 format=3 uid="uid://dx3bsc6cwqbi6"]
 
 [ext_resource type="Script" path="res://Scripts/Level.gd" id="1_ywfis"]
 [ext_resource type="PackedScene" uid="uid://bni26pvvjmxp7" path="res://Scenes/karen.tscn" id="2_264dn"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b7aqlcwqra4tu" path="res://Player/Weapons/AkShotDecal.tscn" id="5_qrr3s"]
 [ext_resource type="Texture2D" uid="uid://cteq4ymswknkb" path="res://Assets/Textures/P2Light/refract_light_color.png" id="7_kivi5"]
 [ext_resource type="Texture2D" uid="uid://bour3aqq5pie0" path="res://Assets/Textures/P2Light/refract_light_normal.png" id="8_7q4pq"]
+[ext_resource type="Script" path="res://Scripts/Entities/Interactable.gd" id="9_3r3e7"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hin0q"]
 panorama = ExtResource("3_jgow1")
@@ -56,6 +57,9 @@ point_size = 128.0
 [sub_resource type="PlaneMesh" id="PlaneMesh_uto5m"]
 material = SubResource("StandardMaterial3D_mqnc0")
 size = Vector2(0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ty786"]
+size = Vector3(1, 2.503, 1)
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_ywfis")
@@ -125,3 +129,10 @@ visible = false
 [node name="MeshInstance3d" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 2.33236, -0.592793, 0.077564)
 mesh = SubResource("PlaneMesh_uto5m")
+
+[node name="Area3d" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90091, 0.530058, 0)
+script = ExtResource("9_3r3e7")
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="Area3d"]
+shape = SubResource("BoxShape3D_ty786")

@@ -19,10 +19,20 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://Player/Weapons/BaseWeapon.gd"
 }, {
+"base": "Area3D",
+"class": &"Interactable",
+"language": &"GDScript",
+"path": "res://Scripts/Entities/Interactable.gd"
+}, {
 "base": "Node3D",
 "class": &"Level",
 "language": &"GDScript",
 "path": "res://Scripts/Level.gd"
+}, {
+"base": "Object",
+"class": &"NormalMovement",
+"language": &"GDScript",
+"path": "res://Player/NormalMovement.gd"
 }, {
 "base": "CharacterBody3D",
 "class": &"Player",
@@ -38,30 +48,37 @@ _global_script_classes=[{
 "class": &"PlayerSpawn",
 "language": &"GDScript",
 "path": "res://Scripts/Entities/PlayerSpawn.gd"
+}, {
+"base": "RichTextEffect",
+"class": &"RichTextMatrix",
+"language": &"GDScript",
+"path": "res://Scripts/BBKeyIcon.gd"
 }]
 _global_script_class_icons={
 "AK47": "",
 "BaseWeapon": "",
+"Interactable": "",
 "Level": "",
+"NormalMovement": "",
 "Player": "",
 "PlayerInputData": "",
-"PlayerSpawn": ""
+"PlayerSpawn": "",
+"RichTextMatrix": ""
 }
 
 [application]
 
 config/name="Version 4 FPS"
 run/main_scene="res://Scenes/scene.tscn"
-config/features=PackedStringArray("4.0", "Vulkan Clustered")
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/fullscreen=true
-window/vsync/vsync_mode=2
-window/stretch/mode="viewport"
+window/vsync/vsync_mode=3
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 

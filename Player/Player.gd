@@ -3,6 +3,7 @@ class_name Player
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+const ACCELERATION = 9
 @export var MOUSE_SENSITIVITY = 2.25
 
 const MAX_AIR_WISH_SPEED = 20
@@ -32,6 +33,34 @@ var last_ground_velocity: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
+
+func _move(delta: float, player_dir: Vector3) -> void:
+	var jumping = false
+	
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		last_ground_velocity = Vector2(velocity.x, velocity.z)
+
+	# Handle Jump
+	if Input.is_action_pressed("jump") and is_on_floor():
+		jumping = true
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	var direction = player_dir.normalized()
+	if is_on_floor() and not jumping:
+		if direction:
+			velocity.x = move_toward(velocity.x, direction.x * SPEED, delta * ACCELERATION) # direction.x * SPEED
+			velocity.z = move_toward(velocity.z, direction.z * SPEED, delta * ACCELERATION) # direction.z * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, delta * ACCELERATION)
+			velocity.z = move_toward(velocity.z, 0, delta * ACCELERATION)
+	else:
+		_air_accelerate(direction, player_dir.length(), AIR_ACCELERATE, delta)
+
+
 # ===== UTILS =====
 func _get_2d_velocity() -> Vector2:
 	return Vector2(velocity.x, velocity.z)
@@ -51,45 +80,24 @@ func _physics_process(delta):
 	last_frame_input_data = input_data
 	input_data = PlayerInputData.new()
 	
+	_check_interactable()
+	
 	if mouse_movement:
 		self.rotate_y(self.mouse_movement.y * -1 * delta * MOUSE_SENSITIVITY)
 		var x_rotation = self.mouse_movement.x * -1 * delta * MOUSE_SENSITIVITY
 		head.rotation.x = clamp(head.rotation.x + x_rotation, deg_to_rad(-90), deg_to_rad(90))
 	self.mouse_movement = Vector2.ZERO
 	
-	var jumping = false
+	var raw_input = Input.get_vector("left", "right", "forward", "backwards")
+	var player_dir = (transform.basis * Vector3(raw_input.x, 0, raw_input.y))
 	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-	else:
-		last_ground_velocity = Vector2(velocity.x, velocity.z)
-
-	# Handle Jump
-	if Input.is_action_pressed("jump") and is_on_floor():
-		jumping = true
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	var input_dir = Input.get_vector("left", "right", "forward", "backwards")
-	var based = (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
-	var direction = based.normalized()
-	if is_on_floor() and not jumping:
-		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			velocity.z = move_toward(velocity.z, 0, SPEED)
-	else:
-		_air_accelerate(direction, based.length(), AIR_ACCELERATE, delta)
-
+	_move(delta, player_dir)
 	
 	# Apply camera effects
 	var camera_yaw := 0
 	var current_speed := _get_2d_velocity().length()
 	if is_on_floor() and current_speed > 0:
-		camera_yaw = -clamp(_get_2d_velocity().length() * input_dir.x, -25, 25)
+		camera_yaw = -clamp(_get_2d_velocity().length() * raw_input.x, -25, 25)
 	else:
 		camera_yaw = 0
 	
@@ -104,6 +112,10 @@ func _physics_process(delta):
 	debug_speed_label.text = "%0.2f" % current_speed
 	
 	move_and_slide()
+
+
+func _movement_standard() -> void:
+	pass
 
 
 func _air_accelerate(wish_dir: Vector3, wish_speed: float, airaccelerate: float, delta_time: float):
@@ -136,6 +148,10 @@ func wall_running() -> bool:
 			velocity.y /= 2
 			return true
 	return false
+
+
+func _check_interactable() -> bool:
+	return true
 
 
 func _input(event):
